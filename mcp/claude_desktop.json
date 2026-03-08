@@ -1,0 +1,12 @@
+{
+  "_comment": "Add this to your Claude Desktop config: ~/Library/Application Support/Claude/claude_desktop_config.json",
+  "mcpServers": {
+    "rosud": {
+      "command": "uvx",
+      "args": ["rosud-mcp"],
+      "env": {
+        "ROSUD_API_KEY": "rosud_live_xxx"
+      }
+    }
+  }
+}
