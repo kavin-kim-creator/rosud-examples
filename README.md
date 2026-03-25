@@ -15,6 +15,7 @@ pip install rosud
 | [openai-agents/](openai-agents/) | OpenAI Agents SDK | Tool-calling payment agent |
 | [mcp/](mcp/) | MCP Server | Claude desktop integration |
 | [typescript/](typescript/) | TypeScript SDK | Node.js payment flow |
+| [webhooks/](webhooks/) | FastAPI | Real-time payment event handling |
 
 ## Quick Start
 
