@@ -1,9 +1,9 @@
 """
-웹훅 등록 스크립트
+Webhook Registration Script
 
-Rosud에 웹훅 엔드포인트를 한 번 등록합니다.
+Registers a webhook endpoint with Rosud once.
 
-사용법:
+Usage:
     export ROSUD_API_KEY=rosud_live_xxx
     export ROSUD_WEBHOOK_SECRET=your-secret-key
     export WEBHOOK_URL=https://myapp.com/webhooks/rosud
@@ -20,32 +20,32 @@ def main() -> None:
     webhook_secret = os.environ.get("ROSUD_WEBHOOK_SECRET", "change-me-in-production")
 
     try:
-        # 기존 웹훅 확인 (중복 방지)
+        # Check for existing webhooks (prevent duplicates)
         existing = client.webhooks.list()
         for wh in existing:
             if wh.url == webhook_url:
-                print(f"⚠️  이미 등록된 웹훅: {wh.id}")
+                print(f"⚠️  Webhook already registered: {wh.id}")
                 print(f"   URL: {wh.url}")
                 client.close()
                 return
 
-        # 웹훅 신규 등록
+        # Register new webhook
         webhook = client.webhooks.create(
             url=webhook_url,
             events=["payment.confirmed", "payment.failed", "payment.pending"],
             secret=webhook_secret,
         )
 
-        print(f"✅ 웹훅 등록 완료!")
+        print(f"✅ Webhook registered!")
         print(f"   ID: {webhook.id}")
         print(f"   URL: {webhook.url}")
-        print(f"   이벤트: {', '.join(webhook.events)}")
+        print(f"   Events: {', '.join(webhook.events)}")
         print()
-        print("💡 이제 receive.py 서버를 실행하세요:")
+        print("💡 Now run the receive.py server:")
         print("   uvicorn receive:app --host 0.0.0.0 --port 8000")
 
     except RosudError as e:
-        print(f"❌ 웹훅 등록 실패: {e.message}")
+        print(f"❌ Webhook registration failed: {e.message}")
     finally:
         client.close()
 
